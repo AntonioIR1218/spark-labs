@@ -45,9 +45,11 @@ jobs:
    # - run: spark-submit --version
    # - run: spark-submit --master local hello.py
    # - run: ls -la 
-    - run: wget -O dataset.csv https://raw.githubusercontent.com/adsoftsito/bigdata/refs/heads/main/datasets/people.csv   
+   # - run: wget -O dataset.csv https://raw.githubusercontent.com/adsoftsito/bigdata/refs/heads/main/datasets/people.csv   
+    - run: wget -O dataset.csv ${{github.event.client_payload.dataseturl}}
+    - run: wget -O app.py ${{github.event.client_payload.codeurl}}
     - run: ls -la
-    - run: spark-submit --master local people.py 
+    - run: spark-submit --master local app.py 
 
     
     - name: GIT commit and push docs
