@@ -41,10 +41,14 @@ jobs:
         spark-version: '3.5.3'
         hadoop-version: '3'
 
-    - run: spark-submit --version
-    - run: spark-submit --version
-    - run: spark-submit --master local hello.py
-    - run: ls -la 
+   # - run: spark-submit --version
+   # - run: spark-submit --version
+   # - run: spark-submit --master local hello.py
+   # - run: ls -la 
+    - run: wget -O dataset.csv https://raw.githubusercontent.com/adsoftsito/bigdata/refs/heads/main/datasets/people.csv   
+    - run: ls -la
+    - run: spark-submit --master local people.py 
+
     
     - name: GIT commit and push docs
       env: 
