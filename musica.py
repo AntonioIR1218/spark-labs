@@ -46,6 +46,23 @@ if __name__ == "__main__":
 
     # Contar canciones por género
     query = "SELECT track_genre, COUNT(track_genre) FROM music GROUP BY track_genre"
+
+# Segundo resultado: canciones explícitas y con alta energía (> 0.8)
+    query = """
+    SELECT track_id, artists, title, energy, explicit 
+    FROM music 
+    WHERE explicit = true AND energy > 0.8 
+    ORDER BY energy DESC
+    """
+    df_explicit_energy = spark.sql(query)
+    df_explicit_energy.show(20)
+
+    # Guardar este segundo resultado en un archivo JSON distinto
+    results_explicit = df_explicit_energy.toJSON().collect()
+    df_explicit_energy.write.mode("overwrite").json("results_explicit")
+    
+    with open('results/explicit_energy_tracks.json', 'w') as file:
+        json.dump(results_explicit, file)
     df_genre_count = spark.sql(query)
     df_genre_count.show()
     
