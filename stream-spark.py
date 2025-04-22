@@ -233,14 +233,14 @@ with tab1:
     with col1:
         github_user = st.text_input('GitHub user', value=CONFIG["GITHUB_USER_DEFAULT"])
         github_repo = st.text_input('GitHub repo', value=CONFIG["GITHUB_REPO_DEFAULT"])
-        spark_job = st.text_input('Spark job name', value='process-tracks')
+        spark_job = st.text_input('Spark job name', value='spark')
     
     with col2:
         github_token = st.text_input('GitHub token', type='password')
         code_url = st.text_input('Code URL', 
-                               value='https://github.com/AntonioIR1218/spark-labs/blob/main/src/spotify_processor.py')
+                               value='https://raw.githubusercontent.com/AntonioIR1218/spark-labs/refs/heads/main/musica.py')
         dataset_url = st.text_input('Dataset URL', 
-                                  value='https://raw.githubusercontent.com/AntonioIR1218/spark-labs/main/data/spotify_tracks.csv')
+                                  value='https://raw.githubusercontent.com/AntonioIR1218/spark-labs/refs/heads/main/dataset.csv')
     
     if st.button("🚀 Ejecutar Spark Job", key="spark_submit"):
         post_spark_job(github_user, github_repo, spark_job, github_token, code_url, dataset_url)
@@ -266,18 +266,7 @@ with tab2:
         if st.button("📥 Obtener datos de PostgreSQL", use_container_width=True):
             get_data_from_postgres()
     
-    with cols[2]:
-        st.info("ℹ️ Estructura esperada en PostgreSQL:")
-        st.code("""
-        CREATE TABLE acoustic_tracks (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            duration_ms INTEGER,
-            explicit BOOLEAN,
-            artists JSONB,
-            processed_at TIMESTAMP DEFAULT NOW()
-        );
-        """)
+   
 
 with tab3:
     st.header("📊 Pipeline: Kafka → MongoDB")
