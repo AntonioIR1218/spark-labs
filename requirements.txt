@@ -1,0 +1,8 @@
+streamlit
+kafka-python
+requests
+pandas
+pymongo
+dnspython
+psycopg2-binary
+sqlalchemy
